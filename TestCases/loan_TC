@@ -1,0 +1,82 @@
+Here are the test cases in BDD format for the XSD structure:
+
+**LoanAccountCreation**
+
+* **Create a loan account with valid data**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with valid data (loanId, loanType, currency, amount, startDate, endDate, borrower, lender, remarks)
+	+ Then: The loan account is successfully created
+* **Create a loan account with invalid loanId**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid loanId (less than 1 character or more than 34 characters)
+	+ Then: An error message is returned indicating that the loanId is invalid
+* **Create a loan account with invalid loanType**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid loanType
+	+ Then: An error message is returned indicating that the loanType is invalid
+* **Create a loan account with invalid currency**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid currency
+	+ Then: An error message is returned indicating that the currency is invalid
+* **Create a loan account with invalid amount**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid amount (not a decimal value)
+	+ Then: An error message is returned indicating that the amount is invalid
+* **Create a loan account with invalid startDate**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid startDate (not a date value)
+	+ Then: An error message is returned indicating that the startDate is invalid
+* **Create a loan account with invalid endDate**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid endDate (not a date value)
+	+ Then: An error message is returned indicating that the endDate is invalid
+* **Create a loan account with invalid borrower**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid borrower
+	+ Then: An error message is returned indicating that the borrower is invalid
+* **Create a loan account with invalid lender**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid lender
+	+ Then: An error message is returned indicating that the lender is invalid
+* **Create a loan account with invalid remarks**
+	+ Given: A new loan account creation request
+	+ When: The request is sent with an invalid remarks (more than 140 characters)
+	+ Then: An error message is returned indicating that the remarks are invalid
+
+**Borrower**
+
+* **Create a borrower with valid data**
+	+ Given: A new borrower creation request
+	+ When: The request is sent with valid data (name, country, account)
+	+ Then: The borrower is successfully created
+* **Create a borrower with invalid name**
+	+ Given: A new borrower creation request
+	+ When: The request is sent with an invalid name (less than 1 character or more than 34 characters)
+	+ Then: An error message is returned indicating that the name is invalid
+* **Create a borrower with invalid country**
+	+ Given: A new borrower creation request
+	+ When: The request is sent with an invalid country
+	+ Then: An error message is returned indicating that the country is invalid
+* **Create a borrower with invalid account**
+	+ Given: A new borrower creation request
+	+ When: The request is sent with an invalid account
+	+ Then: An error message is returned indicating that the account is invalid
+
+**Lender**
+
+* **Create a lender with valid data**
+	+ Given: A new lender creation request
+	+ When: The request is sent with valid data (name, country, account)
+	+ Then: The lender is successfully created
+* **Create a lender with invalid name**
+	+ Given: A new lender creation request
+	+ When: The request is sent with an invalid name (less than 1 character or more than 34 characters)
+	+ Then: An error message is returned indicating that the name is invalid
+* **Create a lender with invalid country**
+	+ Given: A new lender creation request
+	+ When: The request is sent with an invalid country
+	+ Then: An error message is returned indicating that the country is invalid
+* **Create a lender with invalid account**
+	+ Given: A new lender creation request
+	+ When: The request is sent with an invalid account
+	+ Then: An error message is returned indicating that the account is invalid
