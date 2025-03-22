@@ -6,6 +6,7 @@ Download and install python post that verify  py version.<br>
 3.> pip install longchain  //To install longchain<br>
 4.> pip install -qU "langchain[groq]"   //to use langchain groq.<br>
 5.> pip install streamlit  //for UI<br>
+6.> pip install requests
 <br>
 Run application<br>
 6. streamlit run .\index.py<br>
