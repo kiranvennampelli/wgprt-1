@@ -1,11 +1,15 @@
 # wgprt-1
 
-Download and install python post that verify  py version.
-1.> py --version. 
-2.> py -m ensurepip --upgrade  //to install pip
-3.> pip install longchain  //To install longchain
-4.> pip install -qU "langchain[groq]"   //to use langchain groq.
-5.> pip install streamlit  //for UI
+Download and install python post that verify  py version.<br>
+1.> py --version. <br>
+2.> py -m ensurepip --upgrade  //to install pip<br>
+3.> pip install longchain  //To install longchain<br>
+4.> pip install -qU "langchain[groq]"   //to use langchain groq.<br>
+5.> pip install streamlit  //for UI<br>
+<br>
+Run application<br>
+6. streamlit run .\index.py<br>
 
-Run application
-6. streamlit run .\index.py
+Links:<br>
+https://groq.com/<br>
+https://streamlit.io/<br>
