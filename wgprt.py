@@ -1,7 +1,7 @@
 import os
 from xmlschema import XMLSchema
 from langchain.chat_models import init_chat_model
-
+import requests
 
 def parse_xsd_deep(xsd_path):
     """
@@ -92,6 +92,26 @@ def generate_test_cases(xsd_path):
     response = model.invoke(prompt)
     return response.content
 
+def generate_api_test_cases(swagger_url):
+    """
+    Generate automation test cases for REST APIs based on the provided Swagger URL.
+    """
+    try:
+        # Fetch the Swagger JSON from the provided URL
+        response = requests.get(swagger_url)
+        response.raise_for_status()  # Raise an error for HTTP issues
+        swagger_data = response.json()
+
+        # Generate a prompt for the Groq model
+        prompt = "Generate automation test cases for the following Swagger API specification:\n"
+        prompt += f"{swagger_data}"
+
+        # Initialize the Groq model
+        model = init_chat_model("llama3-8b-8192", model_provider="groq")
+        response = model.invoke(prompt)
+        return response.content
+    except Exception as e:
+        raise RuntimeError(f"Failed to generate API test cases: {e}")
 
 if __name__ == "__main__":
     # Ensure the API key is set
