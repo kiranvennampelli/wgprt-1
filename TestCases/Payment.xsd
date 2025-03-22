@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.02"
+           xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.02"
+           elementFormDefault="qualified">
+
+  <!-- FIToFICstmrCdtTrf -->
+
+  <!-- SttlmInf -->
+  <xs:complexType name="SttlmInf_Type">
+    <xs:sequence>
+      <xs:element name="SttlmMtd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- CdtTrfTxInf -->
+  <xs:complexType name="CdtTrfTxInf_Type">
+    <xs:sequence>
+      <xs:element name="PmtId" type="PmtId_Type"/>
+      <xs:element name="IntrBkSttlmAmt">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+              <xs:attribute name="Ccy" type="xs:string" use="required"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChrgBr" type="xs:string"/>
+      <xs:element name="Dbtr" type="Party_Type"/>
+      <xs:element name="DbtrAcct" type="Acct_Type"/>
+      <xs:element name="DbtrAgt" type="FinInstnId_Type"/>
+      <xs:element name="CdtrAgt" type="FinInstnId_Type"/>
+      <xs:element name="Cdtr" type="Party_Type"/>
+      <xs:element name="CdtrAcct" type="Acct_Type"/>
+      <xs:element name="RmtInf" type="RmtInf_Type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- PmtId -->
+  <xs:complexType name="PmtId_Type">
+    <xs:sequence>
+      <xs:element name="InstrId" type="xs:string"/>
+      <xs:element name="EndToEndId" type="xs:string"/>
+      <xs:element name="TxId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Party -->
+  <xs:complexType name="Party_Type">
+    <xs:sequence>
+      <xs:element name="Nm" type="xs:string"/>
+      <xs:element name="PstlAdr" type="PstlAdr_Type"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Postal Address -->
+  <xs:complexType name="PstlAdr_Type">
+    <xs:sequence>
+      <xs:element name="Ctry" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Account -->
+  <xs:complexType name="Acct_Type">
+    <xs:sequence>
+      <xs:element name="Id">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="IBAN" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Financial Institution -->
+  <xs:complexType name="FinInstnId_Type">
+    <xs:sequence>
+      <xs:element name="FinInstnId">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="BIC" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Remittance Information -->
+  <xs:complexType name="RmtInf_Type">
+    <xs:sequence>
+      <xs:element name="Ustrd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
