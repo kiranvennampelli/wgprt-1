@@ -1,57 +1,59 @@
 import streamlit as st
-from wgprt import generate_test_cases 
-from wgprt import generate_api_test_cases
 
-st.title('WGPRT - 1')
-st.header('Wells Fargo Generative Payment Rail Testing Tool')
-st.text('This tool generates test cases for the Wells Fargo Payment Rail Testing Tool.')
+# Initialize session state for navigation
+if "page" not in st.session_state:
+    st.session_state.page = "index"  # Default page
 
-# Create two columns for side-by-side layout
-col1, col2 = st.columns([1, 1])
+# Header with inline links
 
-# First widget: File uploader in the first column
+
+# Placeholder content for the WGPRT page
+st.title("Welcome to the WGPRT Tool")
+st.header("WGPRT - WF Generative Payment Rail Testing Tool")
+st.text("Use below links above to navigate to different sections of the application.")
+
+# Navigation buttons to update session state
+col1, col2, col3 = st.columns(3)
 with col1:
-    st.subheader('Upload XSD File')
-    uploaded_file = st.file_uploader('Upload XSD File', type=['xsd'])
-    st.text('Please upload the XSD file that you would like to generate test cases for.')
-    # Button to trigger test case generation
-    if st.button('Generate Test Cases'):
-        if uploaded_file is not None:
-                # Save the uploaded file to a temporary location
-                temp_file_path = f"temp_{uploaded_file.name}"
-                with open(temp_file_path, "wb") as temp_file:
-                    temp_file.write(uploaded_file.getbuffer())
-
-                # Call the generate_test_cases function from wgprt.py
-                try:
-                    test_cases = generate_test_cases(temp_file_path)
-                    st.text('Test cases generated successfully!')
-                    st.code(test_cases)  # Display the generated test cases
-                except Exception as e:
-                    st.error(f"An error occurred: {e}")
-                finally:
-                    # Clean up the temporary file
-                    import os
-                    if os.path.exists(temp_file_path):
-                        os.remove(temp_file_path)
-    else:
-        st.error('Please upload an XSD file before generating test cases.')
-
-# Second widget: Swagger URL input in the second column
+    if st.button("Test Case Generator"):
+        st.session_state.page = "index"
 with col2:
-    st.subheader('Provide Swagger URL')
-    swagger_url = st.text_input('Enter the Swagger URL for your REST APIs:')
-    st.text('Please provide a valid Swagger URL to generate automation test cases.')
+    if st.button("Fraudulent Detection"):
+        st.session_state.page = "fraudulent"
+with col3:
+    if st.button("Loan Approval"):
+        st.session_state.page = "loan_approval"
 
-    # Button to trigger API test case generation
-    if st.button('Generate API Test Cases'):
-        if swagger_url:
-            # Call the generate_api_test_cases function from wgprt.py
-            try:
-                api_test_cases = generate_api_test_cases(swagger_url)
-                st.text('API test cases generated successfully!')
-                st.code(api_test_cases)  # Display the generated API test cases
-            except Exception as e:
-                st.error(f"An error occurred: {e}")
-        else:
-            st.error('Please provide a valid Swagger URL before generating API test cases.')
+# Render content based on the selected page
+if st.session_state.page == "index":
+    #st.subheader("Index Page Content")
+    try:
+        with open("e:/Wells-WGPRT-1/Development/test_case_generator.py") as f:
+            code = f.read()
+            exec(code)  # Dynamically execute the code from index.py
+    except FileNotFoundError:
+        st.error("The index.py file was not found.")
+    except Exception as e:
+        st.error(f"An error occurred while including index.py: {e}")
+
+elif st.session_state.page == "fraudulent":
+    #st.subheader("Fraudulent Detection Page Content")
+    try:
+        with open("e:/Wells-WGPRT-1/Development/fradulent.py") as f:
+            code = f.read()
+            exec(code)  # Dynamically execute the code from fraudulent.py
+    except FileNotFoundError:
+        st.error("The fraudulent.py file was not found.")
+    except Exception as e:
+        st.error(f"An error occurred while including fraudulent.py: {e}")
+
+elif st.session_state.page == "loan_approval":
+    #st.subheader("Loan Approval Page Content")
+    try:
+        with open("e:/Wells-WGPRT-1/Development/loan_approval.py") as f:
+            code = f.read()
+            exec(code)  # Dynamically execute the code from loan_approval.py
+    except FileNotFoundError:
+        st.error("The loan_approval.py file was not found.")
+    except Exception as e:
+        st.error(f"An error occurred while including loan_approval.py: {e}")
