@@ -1,6 +1,7 @@
 import streamlit as st
 from xsd_swagger_generator import generate_test_cases 
 from xsd_swagger_generator import generate_api_test_cases
+from swagger import generate_bdd_swagger
 
 #st.title('WGPRT - 1')
 #st.header('WF Generative Payment Rail Testing Tool')
@@ -49,6 +50,17 @@ with col2:
             # Call the generate_api_test_cases function from wgprt.py
             try:
                 api_test_cases = generate_api_test_cases(swagger_url)
+                st.text('API test cases generated successfully!')
+                st.code(api_test_cases)  # Display the generated API test cases
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+        else:
+            st.error('Please provide a valid Swagger URL before generating API test cases.')
+    if st.button('Generate BDD Test Cases'):
+        if swagger_url:
+            # Call the generate_api_test_cases function from wgprt.py
+            try:
+                api_test_cases = generate_bdd_swagger(swagger_url)
                 st.text('API test cases generated successfully!')
                 st.code(api_test_cases)  # Display the generated API test cases
             except Exception as e:

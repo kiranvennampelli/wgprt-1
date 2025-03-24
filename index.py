@@ -27,8 +27,9 @@ with col3:
 # Render content based on the selected page
 if st.session_state.page == "index":
     #st.subheader("Index Page Content")
+ 
     try:
-        with open("e:/Wells-WGPRT-1/Development/test_case_generator.py") as f:
+        with open("test_case_generator.py") as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from index.py
     except FileNotFoundError:
@@ -39,7 +40,7 @@ if st.session_state.page == "index":
 elif st.session_state.page == "fraudulent":
     #st.subheader("Fraudulent Detection Page Content")
     try:
-        with open("e:/Wells-WGPRT-1/Development/fradulent.py") as f:
+        with open("fradulent.py") as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from fraudulent.py
     except FileNotFoundError:
@@ -50,7 +51,7 @@ elif st.session_state.page == "fraudulent":
 elif st.session_state.page == "loan_approval":
     #st.subheader("Loan Approval Page Content")
     try:
-        with open("e:/Wells-WGPRT-1/Development/loan_approval.py") as f:
+        with open("loan_approval.py") as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from loan_approval.py
     except FileNotFoundError:
