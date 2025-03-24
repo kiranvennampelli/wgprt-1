@@ -20,8 +20,8 @@
 
     <xs:simpleType name="Max34Text">
         <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="34"/>
+            <xs:minLength value="25"/>
+            <xs:maxLength value="50"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
