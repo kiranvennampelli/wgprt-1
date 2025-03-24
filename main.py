@@ -8,7 +8,7 @@ if __name__ == "__main__":
     main()
 
 if not os.environ.get("GROQ_API_KEY"):
-  os.environ["GROQ_API_KEY"] = "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" #getpass.getpass("Enter API Key: ")
+  os.environ["GROQ_API_KEY"] = "" #getpass.getpass("Enter API Key: ")
 
 from langchain.chat_models import init_chat_model
 
