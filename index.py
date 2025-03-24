@@ -1,10 +1,12 @@
 import streamlit as st
-
+import os
 # Initialize session state for navigation
 if "page" not in st.session_state:
     st.session_state.page = "index"  # Default page
 
-# Header with inline links
+# Get the base directory dynamically
+base_dir = os.path.dirname(__file__)  # Directory of the current script
+
 
 
 # Placeholder content for the WGPRT page
@@ -27,9 +29,10 @@ with col3:
 # Render content based on the selected page
 if st.session_state.page == "index":
     #st.subheader("Index Page Content")
- 
     try:
-        with open("test_case_generator.py") as f:
+         # Dynamically construct the file path for test_case_generator.py
+        file_path = os.path.join(base_dir, "test_case_generator.py")
+        with open(file_path) as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from index.py
     except FileNotFoundError:
@@ -39,8 +42,9 @@ if st.session_state.page == "index":
 
 elif st.session_state.page == "fraudulent":
     #st.subheader("Fraudulent Detection Page Content")
+    file_path = os.path.join(base_dir, "fradulent.py")
     try:
-        with open("fradulent.py") as f:
+        with open(file_path) as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from fraudulent.py
     except FileNotFoundError:
@@ -50,8 +54,9 @@ elif st.session_state.page == "fraudulent":
 
 elif st.session_state.page == "loan_approval":
     #st.subheader("Loan Approval Page Content")
+    file_path = os.path.join(base_dir, "loan_approval.py")
     try:
-        with open("loan_approval.py") as f:
+        with open(file_path) as f:
             code = f.read()
             exec(code)  # Dynamically execute the code from loan_approval.py
     except FileNotFoundError:
