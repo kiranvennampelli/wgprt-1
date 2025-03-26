@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:iso:std:iso:20022:tech:xsd:loan.acct.001.01"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="urn:iso:std:iso:20022:tech:xsd:loan.acct.001.01">
+
+  <!-- Root Element -->
+  <xs:element name="loanAccountCreation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="loanId" type="Max34Text"/>
+        <xs:element name="loanType" type="LoanTypeCode"/>
+        <xs:element name="currency" type="xs:string"/>
+        <xs:element name="amount" type="xs:decimal"/>
+        <xs:element name="startDate" type="xs:date"/>
+        <xs:element name="endDate" type="xs:date"/>
+        <xs:element name="borrower" type="PartyInfo"/>
+        <xs:element name="lender" type="PartyInfo"/>
+        <xs:element name="remarks" type="Max140Text" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Loan Type Enum -->
+  <xs:simpleType name="LoanTypeCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HOME"/>
+      <xs:enumeration value="AUTO"/>
+      <xs:enumeration value="PERSONAL"/>
+      <xs:enumeration value="EDUCATION"/>
+      <xs:enumeration value="BUSINESS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Text Types -->
+  <xs:simpleType name="Max34Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="34"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Max140Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="140"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Party Info -->
+  <xs:complexType name="PartyInfo">
+    <xs:sequence>
+      <xs:element name="name" type="Max34Text"/>
+      <xs:element name="country" type="xs:string"/>
+      <xs:element name="account" type="AccountInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Account Info -->
+  <xs:complexType name="AccountInfo">
+    <xs:sequence>
+      <xs:element name="IBAN" type="xs:string"/>
+      <xs:element name="BIC" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

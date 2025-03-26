@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.13"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.13">
+
+  <!-- Root Element -->
+  <xs:element name="paymentInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cardType" type="CreditDebitCode"/>
+        <xs:element name="transInfo" type="Max34Text" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="debtor" type="PartyInfo"/>
+        <xs:element name="creditor" type="PartyInfo"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Credit/Debit Code -->
+  <xs:simpleType name="CreditDebitCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CRDT"/>
+      <xs:enumeration value="DBIT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Text Constraint -->
+  <xs:simpleType name="Max34Text">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="34"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Party Info (used for both debtor and creditor) -->
+  <xs:complexType name="PartyInfo">
+    <xs:sequence>
+      <xs:element name="name" type="Max34Text"/>
+      <xs:element name="country" type="xs:string"/>
+      <xs:element name="account" type="AccountInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Account Info -->
+  <xs:complexType name="AccountInfo">
+    <xs:sequence>
+      <xs:element name="IBAN" type="xs:string"/>
+      <xs:element name="BIC" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

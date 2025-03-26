@@ -1,0 +1,85 @@
+Here are the test cases in BDD format for the given XSD structure:
+
+**PaymentInfo**
+Feature: PaymentInfo
+  As a payment processor
+  I want to validate the payment info
+  So that I can ensure the payment is processed correctly
+
+Scenario: PaymentInfo has required attributes
+  Given a payment info element
+  When I validate the payment info
+  Then the payment info must have a card type
+  And the payment info must have a transaction info
+  And the payment info must have a debtor
+  And the payment info must have a creditor
+
+Scenario: PaymentInfo has valid attributes
+  Given a payment info element
+  When I validate the payment info
+  Then the card type must be a valid credit debit code
+  And the transaction info must be a valid max 34 text
+  And the debtor must have a valid name and country
+  And the creditor must have a valid name and country
+
+**CardType**
+Feature: CardType
+  As a payment processor
+  I want to validate the card type
+  So that I can ensure the payment is processed correctly
+
+Scenario: CardType is valid
+  Given a card type element
+  When I validate the card type
+  Then the card type must be a valid credit debit code
+
+**TransactionInfo**
+Feature: TransactionInfo
+  As a payment processor
+  I want to validate the transaction info
+  So that I can ensure the payment is processed correctly
+
+Scenario: TransactionInfo is valid
+  Given a transaction info element
+  When I validate the transaction info
+  Then the transaction info must be a valid max 34 text
+
+**Debtor**
+Feature: Debtor
+  As a payment processor
+  I want to validate the debtor
+  So that I can ensure the payment is processed correctly
+
+Scenario: Debtor has required attributes
+  Given a debtor element
+  When I validate the debtor
+  Then the debtor must have a name
+  And the debtor must have a country
+  And the debtor must have an account
+
+Scenario: Debtor has valid attributes
+  Given a debtor element
+  When I validate the debtor
+  Then the name must be a valid max 34 text
+  And the country must be a valid string
+  And the account must have a valid IBAN and BIC
+
+**Creditor**
+Feature: Creditor
+  As a payment processor
+  I want to validate the creditor
+  So that I can ensure the payment is processed correctly
+
+Scenario: Creditor has required attributes
+  Given a creditor element
+  When I validate the creditor
+  Then the creditor must have a name
+  And the creditor must have a country
+  And the creditor must have an account
+
+Scenario: Creditor has valid attributes
+  Given a creditor element
+  When I validate the creditor
+  Then the name must be a valid max 34 text
+  And the country must be a valid string
+  And the account must have a valid IBAN and BIC

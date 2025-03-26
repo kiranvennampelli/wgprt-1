@@ -1,4 +1,5 @@
 import os
+import xmlschema
 from xmlschema import XMLSchema
 from langchain.chat_models import init_chat_model
 import requests
@@ -7,13 +8,10 @@ def parse_xsd_deep(xsd_path):
     """
     Parse the XSD file and return a detailed structure of elements and attributes.
     """
-    schema = XMLSchema(xsd_path)
+    schema = xmlschema.XMLSchema(xsd_path)
     elements = {}
 
     def traverse_element(element, path=""):
-        """
-        Recursively traverse elements and attributes with detailed information.
-        """
         element_path = f"{path}/{element.name}" if path else element.name
         element_details = {
             "type": element.type.name if element.type else "unknown",
@@ -29,19 +27,18 @@ def parse_xsd_deep(xsd_path):
         if element.type and element.type.is_simple():
             if element.type.is_restriction:
                 for facet in element.type.facets.values():
-
-                     if isinstance(facet, list):  # Handle enumeration facets
+                    if isinstance(facet, list):
                         element_details["constraints"].setdefault("enumeration", []).extend(facet)
-                     elif facet.__class__.__name__ == "XsdMinLengthFacet":
+                    elif facet.__class__.__name__ == "XsdMinLengthFacet":
                         element_details["constraints"]["minLength"] = facet.value
-                     elif facet.__class__.__name__ == "XsdMaxLengthFacet":
+                    elif facet.__class__.__name__ == "XsdMaxLengthFacet":
                         element_details["constraints"]["maxLength"] = facet.value
 
         # Extract attributes
         element_details["attributes"] = {
             attr.name: {
                 "type": attr.type.name if attr.type else "unknown",
-                "use": attr.use,  # Required, optional, etc.
+                "use": attr.use,
                 "default": attr.default,
                 "fixed": attr.fixed,
             }
@@ -50,11 +47,9 @@ def parse_xsd_deep(xsd_path):
 
         elements[element_path] = element_details
 
-        # Recursively process child elements
         for child in element.iterchildren():
             traverse_element(child, element_path)
 
-    # Traverse all root elements in the schema
     for root_element in schema.elements.values():
         traverse_element(root_element)
 
@@ -75,53 +70,49 @@ def generate_test_cases(xsd_path):
         for attr_name, attr_details in details['attributes'].items():
             prompt += f"    - Name: {attr_name}, Type: {attr_details['type']}, Use: {attr_details['use']}, Default: {attr_details['default']}, Fixed: {attr_details['fixed']}\n"
         prompt += f"  Min Occurs: {details['min_occurs']}, Max Occurs: {details['max_occurs']}\n"
-        prompt += f"  Children: {', '.join(details['children']) if details['children'] else 'None'}\n"
+        prompt += f"  Children: {', '.join([c for c in details['children'] if c]) if details['children'] else 'None'}\n"
         if details['documentation']:
             prompt += f"  Documentation: {details['documentation']}\n"
         if details["constraints"]:
             prompt += f"  Constraints:\n"
             if "enumeration" in details["constraints"]:
-                prompt += f"    - Enumeration: {', '.join(details['constraints']['enumeration'])}\n"
+                prompt += f"    - Enumeration: {', '.join([str(e) for e in details['constraints']['enumeration'] if e is not None])}\n"
             if "minLength" in details["constraints"]:
                 prompt += f"    - Min Length: {details['constraints']['minLength']}\n"
             if "maxLength" in details["constraints"]:
                 prompt += f"    - Max Length: {details['constraints']['maxLength']}\n"
 
-    # Initialize the Groq model
+
     model = init_chat_model("llama3-8b-8192", model_provider="groq")
     response = model.invoke(prompt)
     return response.content
+
 
 def generate_api_test_cases(swagger_url):
     """
     Generate automation test cases for REST APIs based on the provided Swagger URL.
     """
     try:
-        # Fetch the Swagger JSON from the provided URL
         response = requests.get(swagger_url)
-        response.raise_for_status()  # Raise an error for HTTP issues
+        response.raise_for_status()
         swagger_data = response.json()
 
-        # Generate a prompt for the Groq model
         prompt = "Generate automation test cases for the following Swagger API specification:\n"
         prompt += f"{swagger_data}"
 
-        # Initialize the Groq model
         model = init_chat_model("llama3-8b-8192", model_provider="groq")
         response = model.invoke(prompt)
         return response.content
     except Exception as e:
         raise RuntimeError(f"Failed to generate API test cases: {e}")
 
+
 if __name__ == "__main__":
-    # Ensure the API key is set
     if not os.environ.get("GROQ_API_KEY"):
         os.environ["GROQ_API_KEY"] = "your_api_key_here"
 
-    # Path to your XSD file
     xsd_file_path = "E:/Wells-WGPRT-1/Development/resource/pacs.008.001.13.xsd"
 
-    # Generate and print test cases
     try:
         test_cases = generate_test_cases(xsd_file_path)
         print("Test cases generated successfully:\n")

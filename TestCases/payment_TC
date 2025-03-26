@@ -1,0 +1,46 @@
+Here are the test cases in BDD format:
+
+**Document**
+
+* **Description:** Verify the existence of the Document element.
+* **Expected Result:** The Document element exists and has a single child element FIToFICstmrCdtTrf.
+* **Steps:**
+	1. Parse the XML document.
+	2. Verify the existence of the Document element.
+	3. Verify the existence of the FIToFICstmrCdtTrf child element.
+* **Result:** The Document element and its child element FIToFICstmrCdtTrf exist.
+
+**FIToFICstmrCdtTrf**
+
+* **Description:** Verify the existence of the FIToFICstmrCdtTrf element and its child elements.
+* **Expected Result:** The FIToFICstmrCdtTrf element exists and has two child elements GrpHdr and CdtTrfTxInf.
+* **Steps:**
+	1. Parse the XML document.
+	2. Verify the existence of the FIToFICstmrCdtTrf element.
+	3. Verify the existence of the GrpHdr and CdtTrfTxInf child elements.
+* **Result:** The FIToFICstmrCdtTrf element and its child elements GrpHdr and CdtTrfTxInf exist.
+
+**GrpHdr**
+
+* **Description:** Verify the existence of the GrpHdr element and its child elements.
+* **Expected Result:** The GrpHdr element exists and has five child elements MsgId, CreDtTm, NbOfTxs, SttlmInf, and SttlmMtd.
+* **Steps:**
+	1. Parse the XML document.
+	2. Verify the existence of the GrpHdr element.
+	3. Verify the existence of the MsgId, CreDtTm, NbOfTxs, SttlmInf, and SttlmMtd child elements.
+* **Result:** The GrpHdr element and its child elements exist.
+
+**CdtTrfTxInf**
+
+* **Description:** Verify the existence of the CdtTrfTxInf element and its child elements.
+* **Expected Result:** The CdtTrfTxInf element exists and has 11 child elements PmtId, IntrBkSttlmAmt, ChrgBr, Dbtr, DbtrAcct, DbtrAgt, CdtrAgt, Cdtr, CdtrAcct, RmtInf.
+* **Steps:**
+	1. Parse the XML document.
+	2. Verify the existence of the CdtTrfTxInf element.
+	3. Verify the existence of the PmtId, IntrBkSttlmAmt, ChrgBr, Dbtr, DbtrAcct, DbtrAgt, CdtrAgt, Cdtr, CdtrAcct, and RmtInf child elements.
+* **Result:** The CdtTrfTxInf element and its child elements exist.
+
+**PmtId**
+
+* **Description:** Verify the existence of the PmtId element and its child elements.
+* **Expected Result:** The PmtId element exists and has three child elements InstrId, EndToEnd
