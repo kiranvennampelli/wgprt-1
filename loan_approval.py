@@ -43,7 +43,7 @@ def calculate_loan_score(credit_score, annual_income, debt_to_income_ratio, empl
     return round(loan_score, 2)
 
 # Streamlit app
-st.title("Loan Score Evaluation")
+#st.title("Loan Score Evaluation")
 st.header("Enter Loan Application Details")
 
 # Input fields
